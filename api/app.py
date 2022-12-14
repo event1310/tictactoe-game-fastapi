@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from endpoints.process_move import process_move, router
+from endpoints.process_move import router
 
 app = FastAPI()
 templates = Jinja2Templates(directory="../templates")

@@ -1,0 +1,32 @@
+*** Settings ***
+
+Documentation     This is the main file for the Tic Tac Toe project.
+
+Library           SeleniumLibrary
+
+*** Variables ***
+
+${URL}            http://localhost:8000/
+${BROWSER}        chrome
+
+*** Test Cases ***
+
+Test Tic Tac Toe
+    Open Browser To Tic Tac Toe Game
+    Select Square
+    Check Game State
+    Select Square
+    Check Game State
+
+*** Keywords ***
+
+Open Browser To Tic Tac Toe Game
+    Open Browser    ${URL}    ${BROWSER}
+
+Select Square
+    Click Element   xpath=//div[@id="square-1"]
+
+Check Game State
+    [Arguments]    ${square}
+    ${element}=    Get Element    xpath=//div[@id="square-${square}"]//span[@class="fa fa-times"]
+    Run Keyword And Return Status    Element Should Be Visible    ${element}
