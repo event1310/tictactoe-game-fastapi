@@ -7,11 +7,13 @@ class TicTacToeGame:
     def __init__(self):
         self.gamestate = UNDECIDED
 
+
     def is_moves_left(self, board):
         for i in range(0, 9):
             if board[i] == "":
                 return True
         return False
+
 
     def check_game_score(self, receivedboard) -> int:
         boardcombinations = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -24,12 +26,12 @@ class TicTacToeGame:
                 if receivedboard[boardcombinations[combination][square_index]] == 'X':
                     xoccurences += 1
                     if xoccurences == 3:
-                        return 99999
+                        return 10
 
                 if receivedboard[boardcombinations[combination][square_index]] == 'O':
                     ooccurences += 1
                     if ooccurences == 3:
-                        return -99999
+                        return -10
 
             ooccurences = 0
             xoccurences = 0
@@ -37,6 +39,7 @@ class TicTacToeGame:
         if self.is_moves_left(receivedboard) == True:
             return UNDECIDED
         return DRAW
+
 
     def make_move(self, receivedboard) -> dict:
         self.gamestate = self.check_game_score(receivedboard)
@@ -50,35 +53,36 @@ class TicTacToeGame:
                     self.gamestate = self.check_game_score(receivedboard)
                     if self.gamestate == UNDECIDED:
                         return {"board": receivedboard,
-                                "gamestatus": -1}  # undecided
+                                "gamestatus": -1} #undecided
                     else:
                         return {"board": receivedboard,
-                                "gamestatus": self.gamestate}  # decided
+                                "gamestatus": self.gamestate} #decided
 
         else:
             return {"board": receivedboard,
-                    "gamestatus": self.gamestate}  # undecided
+                    "gamestatus": self.gamestate} #undecided
 
-    def minimax(self, board, depth, ismax, alpha, beta, i):
+
+    def minimax(self, board, depth, ismax, alpha, beta, position):
         if self.is_moves_left(board):
             score = self.check_game_score(board)
 
-            if score == 99999:
+            if score == 10:
                 return score
 
-            if score == -99999:
+            if score == -10:
                 return score
 
         if not self.is_moves_left(board):
             return 0
 
         if ismax:
-            best = -100000
+            best = -1000
 
             for i in range(0, 9):
                 if board[i] == "":
                     board[i] = 'X'
-                    best = max(best, self.minimax(board, depth + 1, True, alpha, beta, i))
+                    best = max(best, self.minimax(board, depth + 1, False, alpha, beta, position))
                     alpha = max(alpha, best)
                     board[i] = ""
                     if beta <= alpha:
@@ -86,23 +90,24 @@ class TicTacToeGame:
             return best
 
         else:
-            best = 100000
+            best = 1000
 
             for i in range(0, 9):
                 if board[i] == "":
                     board[i] = 'O'
-                    best = min(best, self.minimax(board, depth + 1, False, alpha, beta, i))
+                    best = min(best, self.minimax(board, depth + 1, False, alpha, beta, position))
                     beta = min(beta, best)
                     board[i] = ""
                     if beta <= alpha:
                         break
             return best
 
+
     def find_best_move(self, board):
-        bestval = -100000
+        bestval = -1000
         bestmove = -1
-        alpha = -100000
-        beta = 100000
+        alpha = -1000
+        beta = 1000
 
         for i in range(0, 9):
             if board[i] == "":

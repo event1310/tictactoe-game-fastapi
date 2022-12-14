@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.1 (Python 3.9.13 on win32)" generated="20221214 16:41:57.122" rpa="false" schemaversion="3">
+<suite id="s1" name="Test Frontend Feature 1" source="C:\Users\201022893\Desktop\tictactoe-game-fastapi-main\api\tests\frontend\test_frontend_feature_1">
+<test id="s1-t1" name="LocalSite" line="10">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20221214 16:41:57.338" level="INFO">Opening browser 'chrome' to base url 'http://localhost:8000/'.</msg>
+<msg timestamp="20221214 16:41:57.516" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<msg timestamp="20221214 16:41:57.516" level="FAIL">WebDriverException: Message: 'chromedriver' executable needs to be in PATH. Please see https://chromedriver.chromium.org/home
+</msg>
+<status status="FAIL" starttime="20221214 16:41:57.338" endtime="20221214 16:41:57.523"/>
+</kw>
+<status status="FAIL" starttime="20221214 16:41:57.338" endtime="20221214 16:41:57.523">WebDriverException: Message: 'chromedriver' executable needs to be in PATH. Please see https://chromedriver.chromium.org/home
+</status>
+</test>
+<status status="FAIL" starttime="20221214 16:41:57.122" endtime="20221214 16:41:57.523"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Test Frontend Feature 1">Test Frontend Feature 1</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

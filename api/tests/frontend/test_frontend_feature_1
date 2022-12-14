@@ -1,0 +1,11 @@
+*** Settings ***
+Library           SeleniumLibrary
+
+*** Variables ***
+${URL}    http://localhost:8000/
+${BROWSER}    chrome
+
+
+*** Test Cases ***
+Localhost Open
+    Open Browser    ${URL}    ${BROWSER}

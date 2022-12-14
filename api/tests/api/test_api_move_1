@@ -1,0 +1,15 @@
+*** Variables ***
+
+${URL}            http://localhost:8000/
+${BROWSER}        chrome
+
+*** Settings ***
+
+Library           requests
+
+*** Test Cases ***
+
+Test API Endpoint
+    ${response}=    Post Request   http://localhost:8000/move    json={"board": ["X", "-", "-", "-", "-", "-", "-", "-", "-"]}
+    Should Be Equal As Strings   ${response.status_code}   200
+    Should Be Equal As Strings   ${response.text}   '{"board": ["X", "O", "-", "-", "-", "-", "-", "-", "-"]}'

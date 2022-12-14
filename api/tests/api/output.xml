@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.1 (Python 3.9.13 on win32)" generated="20221214 16:40:05.742" rpa="false" schemaversion="3">
+<suite id="s1" name="Test Api Move 1" source="C:\Users\201022893\Desktop\tictactoe-game-fastapi-main\api\tests\api\test_api_move_1">
+<test id="s1-t1" name="Test API Endpoint" line="12">
+<kw name="Post Request">
+<var>${response}</var>
+<arg>http://localhost:8000/move</arg>
+<arg>json={"board": ["X", "-", "-", "-", "-", "-", "-", "-", "-"]}</arg>
+<msg timestamp="20221214 16:40:05.763" level="FAIL">No keyword with name 'Post Request' found.</msg>
+<status status="FAIL" starttime="20221214 16:40:05.763" endtime="20221214 16:40:05.763"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" starttime="20221214 16:40:05.763" endtime="20221214 16:40:05.763"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${response.text}</arg>
+<arg>'{"board": ["X", "O", "-", "-", "-", "-", "-", "-", "-"]}'</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" starttime="20221214 16:40:05.763" endtime="20221214 16:40:05.763"/>
+</kw>
+<status status="FAIL" starttime="20221214 16:40:05.762" endtime="20221214 16:40:05.764">No keyword with name 'Post Request' found.</status>
+</test>
+<status status="FAIL" starttime="20221214 16:40:05.744" endtime="20221214 16:40:05.765"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Test Api Move 1">Test Api Move 1</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20221214 16:40:05.760" level="ERROR">Error in file 'C:\Users\201022893\Desktop\tictactoe-game-fastapi-main\api\tests\api\test_api_move_1' on line 8: Importing library 'requests' failed: ModuleNotFoundError: No module named 'requests'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Users\201022893\AppData\Local\Programs\Python\Python39\Scripts\robot.exe
+  C:\Users\201022893\AppData\Local\Programs\Python\Python39\python39.zip
+  C:\Users\201022893\AppData\Local\Programs\Python\Python39\DLLs
+  C:\Users\201022893\AppData\Local\Programs\Python\Python39\lib
+  C:\Users\201022893\AppData\Local\Programs\Python\Python39
+  C:\Users\201022893\AppData\Local\Programs\Python\Python39\lib\site-packages</msg>
+</errors>
+</robot>
