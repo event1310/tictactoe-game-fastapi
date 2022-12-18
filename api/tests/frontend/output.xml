@@ -1,21 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.0.1 (Python 3.9.13 on win32)" generated="20221214 16:41:57.122" rpa="false" schemaversion="3">
-<suite id="s1" name="Test Frontend Feature 1" source="C:\Users\201022893\Desktop\tictactoe-game-fastapi-main\api\tests\frontend\test_frontend_feature_1">
-<test id="s1-t1" name="LocalSite" line="10">
-<kw name="Open Browser" library="SeleniumLibrary">
-<arg>${URL}</arg>
-<arg>${BROWSER}</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<msg timestamp="20221214 16:41:57.338" level="INFO">Opening browser 'chrome' to base url 'http://localhost:8000/'.</msg>
-<msg timestamp="20221214 16:41:57.516" level="INFO">Cannot capture screenshot because no browser is open.</msg>
-<msg timestamp="20221214 16:41:57.516" level="FAIL">WebDriverException: Message: 'chromedriver' executable needs to be in PATH. Please see https://chromedriver.chromium.org/home
-</msg>
-<status status="FAIL" starttime="20221214 16:41:57.338" endtime="20221214 16:41:57.523"/>
+<robot generator="Robot 6.0.1 (Python 3.10.4 on win32)" generated="20221215 16:06:17.684" rpa="false" schemaversion="3">
+<suite id="s1" name="Test Api Move 1" source="C:\Users\whawryluk\Desktop\tictactoe-game-fastapi\api\tests\api\test_api_move_1">
+<test id="s1-t1" name="Test API Endpoint" line="9">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>tictactoesite</arg>
+<arg>http://localhost:8000/move</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20221215 16:06:17.791" level="INFO">Creating Session using : alias=tictactoesite, url=http://localhost:8000/move, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20221215 16:06:17.791" endtime="20221215 16:06:17.791"/>
 </kw>
-<status status="FAIL" starttime="20221214 16:41:57.338" endtime="20221214 16:41:57.523">WebDriverException: Message: 'chromedriver' executable needs to be in PATH. Please see https://chromedriver.chromium.org/home
-</status>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>tictactoesite</arg>
+<arg>http://localhost:8000/move</arg>
+<arg>json={"["X", "-", "-", "-", "-", "-", "-", "-", "-"]"}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20221215 16:06:19.849" level="INFO">POST Request : url=http://localhost:8000/move 
+ path_url=/move 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '71', 'Content-Type': 'application/json'} 
+ body=b'"{\\"[\\"X\\", \\"-\\", \\"-\\", \\"-\\", \\"-\\", \\"-\\", \\"-\\", \\"-\\", \\"-\\"]\\"}"' 
+ </msg>
+<msg timestamp="20221215 16:06:19.850" level="INFO">POST Response : url=http://localhost:8000/move 
+ status=500, reason=Internal Server Error 
+ headers={'date': 'Thu, 15 Dec 2022 15:06:19 GMT', 'server': 'uvicorn', 'content-length': '21', 'content-type': 'text/plain; charset=utf-8'} 
+ body=Internal Server Error 
+ </msg>
+<msg timestamp="20221215 16:06:19.850" level="FAIL">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:8000/move</msg>
+<status status="FAIL" starttime="20221215 16:06:17.791" endtime="20221215 16:06:19.853"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" starttime="20221215 16:06:19.854" endtime="20221215 16:06:19.854"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${response.text}</arg>
+<arg>'{"board": ["X", "O", "-", "-", "-", "-", "-", "-", "-"]}'</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" starttime="20221215 16:06:19.855" endtime="20221215 16:06:19.855"/>
+</kw>
+<status status="FAIL" starttime="20221215 16:06:17.790" endtime="20221215 16:06:19.856">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:8000/move</status>
 </test>
-<status status="FAIL" starttime="20221214 16:41:57.122" endtime="20221214 16:41:57.523"/>
+<status status="FAIL" starttime="20221215 16:06:17.685" endtime="20221215 16:06:19.858"/>
 </suite>
 <statistics>
 <total>
@@ -24,7 +51,7 @@
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" skip="0" id="s1" name="Test Frontend Feature 1">Test Frontend Feature 1</stat>
+<stat pass="0" fail="1" skip="0" id="s1" name="Test Api Move 1">Test Api Move 1</stat>
 </suite>
 </statistics>
 <errors>

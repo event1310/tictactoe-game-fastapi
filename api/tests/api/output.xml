@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.0.1 (Python 3.9.13 on win32)" generated="20221214 16:40:05.742" rpa="false" schemaversion="3">
-<suite id="s1" name="Test Api Move 1" source="C:\Users\201022893\Desktop\tictactoe-game-fastapi-main\api\tests\api\test_api_move_1">
-<test id="s1-t1" name="Test API Endpoint" line="12">
-<kw name="Post Request">
-<var>${response}</var>
+<robot generator="Robot 6.0.1 (Python 3.10.4 on win32)" generated="20221215 17:22:29.971" rpa="false" schemaversion="3">
+<suite id="s1" name="Test Api Move 1" source="C:\Users\whawryluk\Desktop\tictactoe-game-fastapi\api\tests\api\test_api_move_1">
+<test id="s1-t1" name="Test API Endpoint" line="9">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>tictactoesite</arg>
 <arg>http://localhost:8000/move</arg>
-<arg>json={"board": ["X", "-", "-", "-", "-", "-", "-", "-", "-"]}</arg>
-<msg timestamp="20221214 16:40:05.763" level="FAIL">No keyword with name 'Post Request' found.</msg>
-<status status="FAIL" starttime="20221214 16:40:05.763" endtime="20221214 16:40:05.763"/>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20221215 17:22:30.103" level="INFO">Creating Session using : alias=tictactoesite, url=http://localhost:8000/move, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20221215 17:22:30.102" endtime="20221215 17:22:30.104"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>tictactoesite</arg>
+<arg>http://localhost:8000/move</arg>
+<arg>{["X", "", "", "", "", "", "", "", ""]}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20221215 17:22:32.158" level="INFO">POST Request : url=http://localhost:8000/move 
+ path_url=/move 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '39'} 
+ body={["X", "", "", "", "", "", "", "", ""]} 
+ </msg>
+<msg timestamp="20221215 17:22:32.158" level="INFO">POST Response : url=http://localhost:8000/move 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Thu, 15 Dec 2022 16:22:31 GMT', 'server': 'uvicorn', 'content-length': '308', 'content-type': 'application/json'} 
+ body={"detail":[{"loc":["body",1],"msg":"Expecting property name enclosed in double quotes: line 1 column 2 (char 1)","type":"value_error.jsondecode","ctx":{"msg":"Expecting property name enclosed in double quotes","doc":"{[\"X\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\"]}","pos":1,"lineno":1,"colno":2}}]} 
+ </msg>
+<msg timestamp="20221215 17:22:32.158" level="FAIL">HTTPError: 422 Client Error: Unprocessable Entity for url: http://localhost:8000/move</msg>
+<status status="FAIL" starttime="20221215 17:22:30.104" endtime="20221215 17:22:32.163"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${response.status_code}</arg>
 <arg>200</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="NOT RUN" starttime="20221214 16:40:05.763" endtime="20221214 16:40:05.763"/>
+<status status="NOT RUN" starttime="20221215 17:22:32.164" endtime="20221215 17:22:32.164"/>
 </kw>
-<kw name="Should Be Equal As Strings" library="BuiltIn">
-<arg>${response.text}</arg>
-<arg>'{"board": ["X", "O", "-", "-", "-", "-", "-", "-", "-"]}'</arg>
-<doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="NOT RUN" starttime="20221214 16:40:05.763" endtime="20221214 16:40:05.763"/>
-</kw>
-<status status="FAIL" starttime="20221214 16:40:05.762" endtime="20221214 16:40:05.764">No keyword with name 'Post Request' found.</status>
+<status status="FAIL" starttime="20221215 17:22:30.102" endtime="20221215 17:22:32.165">HTTPError: 422 Client Error: Unprocessable Entity for url: http://localhost:8000/move</status>
 </test>
-<status status="FAIL" starttime="20221214 16:40:05.744" endtime="20221214 16:40:05.765"/>
+<status status="FAIL" starttime="20221215 17:22:29.974" endtime="20221215 17:22:32.167"/>
 </suite>
 <statistics>
 <total>
@@ -36,15 +49,5 @@
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20221214 16:40:05.760" level="ERROR">Error in file 'C:\Users\201022893\Desktop\tictactoe-game-fastapi-main\api\tests\api\test_api_move_1' on line 8: Importing library 'requests' failed: ModuleNotFoundError: No module named 'requests'
-Traceback (most recent call last):
-  None
-PYTHONPATH:
-  C:\Users\201022893\AppData\Local\Programs\Python\Python39\Scripts\robot.exe
-  C:\Users\201022893\AppData\Local\Programs\Python\Python39\python39.zip
-  C:\Users\201022893\AppData\Local\Programs\Python\Python39\DLLs
-  C:\Users\201022893\AppData\Local\Programs\Python\Python39\lib
-  C:\Users\201022893\AppData\Local\Programs\Python\Python39
-  C:\Users\201022893\AppData\Local\Programs\Python\Python39\lib\site-packages</msg>
 </errors>
 </robot>

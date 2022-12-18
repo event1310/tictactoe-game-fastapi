@@ -1,3 +1,5 @@
+import random
+
 UNDECIDED = -1
 PLAYER = 1
 DRAW = 0
@@ -42,24 +44,35 @@ class TicTacToeGame:
         self.gamestate = self.check_game_score(receivedboard)
 
         if self.gamestate == UNDECIDED:
-            pmove = self.find_best_move(receivedboard)
-            if pmove in range(0, 9):
-                if receivedboard[int(pmove)] == "":
-                    receivedboard[int(pmove)] = 'O'
+            if not "O" in receivedboard:
+                first_pmove_index = receivedboard.index("X")
+                first_aimove_range = list(range(0, first_pmove_index)) + list(range(first_pmove_index+1, 9))
+                print(first_aimove_range)
+                randommove = random.choice(first_aimove_range)
+                print(randommove)
+                receivedboard[int(randommove)] = "O"
+                return {"board": receivedboard,
+                        "gamestatus": -1}  # undecided
 
-                    self.gamestate = self.check_game_score(receivedboard)
-                    if self.gamestate == UNDECIDED:
-                        return {"board": receivedboard,
-                                "gamestatus": -1}  # undecided
-                    else:
-                        return {"board": receivedboard,
-                                "gamestatus": self.gamestate}  # decided
+            else:
+                pmove = self.find_best_move(receivedboard)
+                if pmove in range(0, 9):
+                    if receivedboard[int(pmove)] == "":
+                        receivedboard[int(pmove)] = 'O'
+
+                        self.gamestate = self.check_game_score(receivedboard)
+                        if self.gamestate == UNDECIDED:
+                            return {"board": receivedboard,
+                                    "gamestatus": -1}  # undecided
+                        else:
+                            return {"board": receivedboard,
+                                    "gamestatus": self.gamestate}  # decided
 
         else:
             return {"board": receivedboard,
                     "gamestatus": self.gamestate}  # undecided
 
-    def minimax(self, board, depth, ismax, alpha, beta, i):
+    def minimax(self, board, depth, ismax, alpha, beta):
         if self.is_moves_left(board):
             score = self.check_game_score(board)
 
@@ -70,7 +83,7 @@ class TicTacToeGame:
                 return score
 
         if not self.is_moves_left(board):
-            return 0
+            return self.check_game_score(board)
 
         if ismax:
             best = -100000
@@ -78,7 +91,7 @@ class TicTacToeGame:
             for i in range(0, 9):
                 if board[i] == "":
                     board[i] = 'X'
-                    best = max(best, self.minimax(board, depth + 1, True, alpha, beta, i))
+                    best = max(best, self.minimax(board, depth + 1, True, alpha, beta))
                     alpha = max(alpha, best)
                     board[i] = ""
                     if beta <= alpha:
@@ -91,7 +104,7 @@ class TicTacToeGame:
             for i in range(0, 9):
                 if board[i] == "":
                     board[i] = 'O'
-                    best = min(best, self.minimax(board, depth + 1, False, alpha, beta, i))
+                    best = min(best, self.minimax(board, depth + 1, False, alpha, beta))
                     beta = min(beta, best)
                     board[i] = ""
                     if beta <= alpha:
@@ -107,7 +120,7 @@ class TicTacToeGame:
         for i in range(0, 9):
             if board[i] == "":
                 board[i] = 'O'
-                moveval = self.minimax(board, 0, False, alpha, beta, i)
+                moveval = self.minimax(board, 0, False, alpha, beta)
                 board[i] = ""
                 if moveval > bestval:
                     bestmove = i

@@ -1,11 +1,38 @@
 *** Settings ***
-Library           SeleniumLibrary
+
+Documentation     Test case checks if valid signs are placed when making a move on a board
+
+Library           SeleniumLibrary           run_on_failure=Nothing
 
 *** Variables ***
-${URL}    http://localhost:8000/
-${BROWSER}    chrome
 
+${URL}            http://localhost:8000/
+${BROWSER}        chrome
+${CIRCLE}         fa-regular fa-circle
+${CROSS}          fa fa-times
 
 *** Test Cases ***
-Localhost Open
+
+Test Tic Tac Toe
+    Open Browser To Tic Tac Toe Game
+    Place X    square-1
+    Check X    square-1
+    Check O    square-2
+
+*** Keywords ***
+Open Browser To Tic Tac Toe Game
     Open Browser    ${URL}    ${BROWSER}
+
+Place X
+    [Arguments]    ${square}
+    Click Element   xpath=//div[@id="${square}"]
+
+Check X
+    [Arguments]    ${square}
+    ${element}=    Get Element Attribute    xpath=//div[@id="${square}"]//span[@class="${CROSS}"]     element
+    Run Keyword And Return Status    Element Should Be Visible    ${element}
+
+Check O
+    [Arguments]    ${square}
+    ${element}=    Get Element Attribute    xpath=//div[@id="${square}"]//span[@class="${CIRCLE}"]     element
+    Run Keyword And Return Status    Element Should Be Visible    ${element}

@@ -2,7 +2,6 @@ board = new Array("", "", "", "", "", "", "", "", "");
 let gamestatus = -1
 let isWaiting = 0;
 
-//TODO: prevent from clicking anything when the game is resolved
 
 function updateBoard(newboard) {
     for (let i=0;i<9;i++) {
